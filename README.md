@@ -1,2 +1,2 @@
 # Nodejs-Redis
- This application gives you various insights regarding StockMarket
+ This application helps you to get various information of LinkedINUser
