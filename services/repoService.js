@@ -1,26 +1,17 @@
-const redis = require("redis")
-
-redisClient = redis.createClient(process.env.REDIS_PORT)
+const fetch = require('node-fetch');
 
 function setResponse(username, repos) {
     return `<h2>${username} has ${repos} Github repos</h2>`;
 }
 
-exports.GetRepoDetails = async function (res,req,next,username){
-    try {
-        console.log('Getting Repo Details');
-        //call getCache using redis object
+exports.GetRepoDetails = async function (req, res, next, username) {
 
-        const response = await fetch(`https://api.github.com/users/${username}`);
-        const data = await response.json();
-        const repos = data.public_repos;
+    console.log('Getting Repo Details');
+    const response = await fetch(`https://api.github.com/users/${username}`);
+    const data = await response.json();
+    const repos = data.public_repos;
+    console.log(response)
 
-        // call setCache using redis object
-        res.send(setResponse(username, repos));
-
-    } catch (err) {
-        console.error(err);
-        res.send(err);
-    }
+    return (response)
 
 }

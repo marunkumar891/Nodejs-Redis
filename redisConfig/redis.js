@@ -5,6 +5,7 @@ class Redis {
     constructor() {
         this.redisClient = redis.createClient({
             port: process.env.REDIS_PORT.port,
+            host: process.env.REDIS_URL,
             no_ready_check: true,
         });
 

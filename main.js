@@ -1,12 +1,15 @@
 require('dotenv').config()
 const redis = require("./redisConfig/redis")
-global.redisClient = redis()
+//global.redisClient = redis()
 
 const express = require("express")
 const PORT = process.env.PORT || 9000;
 
+const parser = require("body-parser")
 
 const app = express()
+app.use(parser.json())
+
 const userController = require("./controllers/repoController")
 
 app.get('/ping', (req, res) => {
