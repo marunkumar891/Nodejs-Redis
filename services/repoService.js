@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const redis = require("../redisConfig/redis")
+redisClient = redis()
 
 function setResponse(username, repos) {
     return `<h2>${username} has ${repos} Github repos</h2>`;
