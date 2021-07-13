@@ -13,7 +13,7 @@ exports.FindUser = async function (req, res) {
     }else {
         try {
             repoDetails = await getRepos.GetRepoDetails(username)
-            console.log(repoDetails)
+            console.log("from controller: ",repoDetails)
         } catch (e) {
             console.log("Error from GetRepoDetails",e)
         }

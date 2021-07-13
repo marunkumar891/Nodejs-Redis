@@ -1,6 +1,6 @@
 require('dotenv').config()
 const redis = require("./redisConfig/redis")
-//global.redisClient = redis()
+global.redisClient = redis()
 
 const express = require("express")
 const PORT = process.env.PORT || 9000;

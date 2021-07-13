@@ -5,12 +5,28 @@ function setResponse(username, repos) {
 }
 
 exports.GetRepoDetails = async (username) => {
-
+    let repos
     console.log('Getting Repo Details');
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    const data = await response.json();
-    const repos = data.public_repos;
+    try{
+        repos = await redisClient.getCache(username)
+        console.log(`details: ${repos}`)
+    }catch (e) {
+        console.log("Details not found in Cache")
+    }
 
-    return (repos)
+    if (!repos) {
+        try {
+            const response = await fetch(`https://api.github.com/users/${username}`);
+            const data = await response.json();
+            repos = data.public_repos;
+            //setResponse(username,repos)
+        }catch (e) {
+            console.log("Unable to fetch from github: ",e)
+        }
+        redisClient.setCache(username,repos)
+        return (repos)
+    }
+    return repos
+
 
 }

@@ -18,14 +18,21 @@ class Redis {
     }
 
     getCache(username) {
-        this.redisClient.get(username, (err, data) => {
-            if (err) return err;
-            return data;
+        return new Promise((resolve, reject) => {
+            this.redisClient.get(username, (err, data) => {
+                if (err) return reject(err);
+                console.log("from redis",data)
+                return resolve(data);
+            });
         });
+
     }
 
     setCache(username,repos) {
-        this.redisClient.setex(username, 3600, repos);
+        this.redisClient.set(username, repos, (err,data) =>{
+            if (err) return err
+            console.log("Storing into Cache: ",data)
+        });
     }
 }
 
