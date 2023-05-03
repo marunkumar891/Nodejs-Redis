@@ -20,6 +20,7 @@ exports.GetRepoDetails = async (username) => {
         try {
             const response = await fetch(`https://api.github.com/users/${username}`);
             const data = await response.json();
+            console.log(data);
             repos = data.public_repos;
             //setResponse(username,repos)
         }catch (e) {
